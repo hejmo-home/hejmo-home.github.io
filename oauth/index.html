@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Hejmo</title>
+<link rel="stylesheet" href="relay.css">
+</head>
+<body>
+<div class="relay"><div class="card">
+  <p class="brand">Hejmo</p>
+
+  <div data-state="forward" hidden>
+    <h1 lang="de">Zurück zu deiner Hejmo-Box …</h1>
+    <h1 lang="en">Back to your Hejmo box …</h1>
+    <p lang="de">Einen Moment. Falls nichts passiert, tippe auf den Knopf.</p>
+    <p lang="en">One moment. If nothing happens, tap the button.</p>
+    <p class="target"><span lang="de">Ziel:</span><span lang="en">Target:</span> <b data-target></b></p>
+    <a class="button" data-go href="#"><span lang="de">Weiter zur Box</span><span lang="en">Continue to the box</span></a>
+  </div>
+
+  <div data-state="refused" hidden>
+    <h1 lang="de">Diese Weiterleitung ist nicht erlaubt</h1>
+    <h1 lang="en">This redirect is not allowed</h1>
+    <p lang="de">Diese Seite leitet nur zu einer Hejmo-Box zurück: über https, oder über http zu einer Adresse im Heimnetz. Das Ziel ist keines davon; nichts wurde weitergegeben.</p>
+    <p lang="en">This page only sends you back to a Hejmo box: over https, or over http to an address in the home network. The target is neither; nothing was passed on.</p>
+    <p class="target"><span lang="de">Ziel:</span><span lang="en">Target:</span> <b data-target></b></p>
+    <p lang="de">Geh zurück zu deiner Box und nimm dort den Ersatzweg „Adresse einfügen“.</p>
+    <p lang="en">Go back to your box and take the fallback “paste the address” there.</p>
+  </div>
+
+  <div data-state="direct" hidden>
+    <h1 lang="de">Diese Seite leitet nach einer Google-Anmeldung zurück zu eurer Hejmo-Box</h1>
+    <h1 lang="en">This page sends you back to your Hejmo box after a Google sign-in</h1>
+    <p lang="de">Allein aufgerufen tut sie nichts. Sie speichert nichts, lädt nichts von anderen Seiten und reicht nur den einmaligen Anmeldecode an eure Box weiter.</p>
+    <p lang="en">Opened on its own it does nothing. It stores nothing, loads nothing from other sites and only passes the one-time sign-in code on to your box.</p>
+    <a class="link" href="https://github.com/hejmo-home/hejmo"><span lang="de">Was ist Hejmo?</span><span lang="en">What is Hejmo?</span></a>
+  </div>
+
+  <noscript>
+    <p lang="de">Diese Seite braucht JavaScript, um zu deiner Box zurückzuleiten. Nimm in der Box den Ersatzweg „Adresse einfügen“.</p>
+    <p lang="en">This page needs JavaScript to send you back to your box. In the box, take the fallback “paste the address”.</p>
+  </noscript>
+</div></div>
+<script src="relay.js"></script>
+</body>
+</html>
