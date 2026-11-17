@@ -1,0 +1,34 @@
+/* The relay page of the Google connection. The tokens are those of the
+   "Nordic Calm" design of Hejmo (light and dark); the page loads nothing from
+   anywhere. */
+:root {
+  color-scheme: light dark;
+  --background: #F6F3EE; --surface: #FFFFFF; --text: #2A2A28; --text-secondary: #5C5A55;
+  --accent: #2F5E7A; --accent-text: #FFFFFF; --border: #D6D3CC;
+  --fs-key-figure: 22px; --fs-event-title: 16px; --fs-label: 14px;
+  --radius-tile: 22px; --radius-chip: 22px; --touch-target: 44px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1B1A18; --surface: #262522; --text: #ECE9E3; --text-secondary: #B4B0A7;
+    --accent: #6FA3C2; --accent-text: #1B1A18; --border: #403E39;
+  }
+}
+body { margin: 0; }
+[hidden] { display: none !important; }
+[data-state] { display: grid; gap: 14px; }
+html[lang="de"] [lang="en"], html[lang="en"] [lang="de"] { display: none; }
+/* Relay page on hejmo-home.github.io/oauth/ (its own repository, own small stylesheet with these tokens). */
+.relay { min-height: 100vh; display: grid; place-items: center; padding: 28px 14px; box-sizing: border-box; background: var(--background); color: var(--text); font-family: Figtree, system-ui, sans-serif; }
+.relay .card { max-width: 30em; width: 100%; box-sizing: border-box; display: grid; gap: 14px; padding: 20px; background: var(--surface); border-radius: var(--radius-tile); }
+.relay .brand { font-weight: 800; font-size: var(--fs-event-title); color: var(--accent); margin: 0; }
+.relay h1 { margin: 0; font-size: var(--fs-key-figure); line-height: 1.2; }
+.relay p { margin: 0; overflow-wrap: anywhere; }
+.relay .target { font-size: var(--fs-label); color: var(--text-secondary); }
+.relay .target b { color: var(--text); overflow-wrap: anywhere; }
+.relay .button { justify-self: start; }
+[data-theme="bw"] .relay .card { border: 2px solid var(--text); }
+[data-theme="bw"] .relay .brand { color: var(--text); }
+
+.relay .button { cursor: pointer; display: inline-block; min-height: var(--touch-target); box-sizing: border-box; padding: 10px 22px; border-radius: var(--radius-chip); background: var(--accent); color: var(--accent-text); font-weight: 700; text-decoration: none; }
+.relay .link { display: inline-flex; align-items: center; min-height: var(--touch-target); color: var(--accent); font-weight: 600; }
