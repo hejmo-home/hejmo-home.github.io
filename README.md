@@ -13,6 +13,6 @@ Static pages for [Hejmo](https://github.com/hejmo-home/hejmo), served by GitHub 
 
 ## Changing it
 
-Changes need the same review as the main repository. `node --test test/` checks where the page may go and that it stays self-contained.
+Changes need the same review as the main repository. `node --test test/*.test.js` checks where the page may go and that it stays self-contained.
 
 License: AGPL-3.0, like Hejmo.
