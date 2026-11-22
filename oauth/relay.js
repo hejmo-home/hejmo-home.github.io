@@ -10,26 +10,26 @@ export const CALLBACK_PATH = '/connections/google/callback';
 // Google's answer: the relay passes these on, byte for byte, and nothing else.
 const FORWARDED = ['code', 'state', 'error', 'scope'];
 
-// isPrivateHost says whether a host name is an address in the home network (or this
-// machine): 127.0.0.1, localhost, 10/8, 172.16/12, 192.168/16, *.local, IPv6 ULA
-// (fc00::/7) and link-local (fe80::/10). Brackets around IPv6 are accepted.
+// isPrivateHost says whether a host is an IP literal in the home network (ADR 0013: "over
+// http only to private IP addresses"): 10/8, 172.16/12, 192.168/16, IPv6 ULA fc00::/7, and
+// loopback (127/8, ::1) for a box on the same machine. Names are never private, not even
+// localhost or *.local: a router or office DNS may answer those. Link-local (fe80::/10,
+// 169.254/16), carrier-grade NAT (100.64/10) and IPv4-mapped IPv6 are refused too.
+// Brackets around IPv6 are accepted.
 export function isPrivateHost(host) {
   let h = String(host).toLowerCase();
   if (h.startsWith('[') && h.endsWith(']')) h = h.slice(1, -1);
-  if (h.endsWith('.')) h = h.slice(0, -1);
-  if (h === 'localhost') return true;
-  if (h.endsWith('.local') && h.length > '.local'.length) return true;
   const v4 = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(h);
   if (v4) {
     const [a, b, c, d] = v4.slice(1).map(Number);
     if ([a, b, c, d].some((n) => n > 255)) return false;
     return a === 127 || a === 10 || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168);
   }
-  if (h.includes(':')) {
+  if (/^[0-9a-f:]+$/.test(h) && h.includes(':')) {
+    if (h === '::1') return true;
     const first = h.split(':')[0];
     if (!/^[0-9a-f]{1,4}$/.test(first)) return false;
-    const n = parseInt(first, 16);
-    return (n & 0xfe00) === 0xfc00 || (n & 0xffc0) === 0xfe80;
+    return (parseInt(first, 16) & 0xfe00) === 0xfc00;
   }
   return false;
 }
@@ -52,7 +52,7 @@ function decodeState(state) {
 //   { kind: 'direct' }                       opened without Google's answer: explain
 //   { kind: 'forward', target }              go to target (https://<box>/connections/google/callback?...)
 //   { kind: 'refused', reason, shown? }      refuse; shown is the address that was asked for, if it is one
-// reasons: 'no_box' (no usable box address in the state), 'bad_origin' (not a plain
+// reasons: 'duplicate' (a parameter twice), 'no_box' (no usable box address in the state), 'bad_origin' (not a plain
 // http(s) origin: other path, credentials, query ...), 'public_http' (http to a public address).
 export function resolveRelay(search) {
   let q = String(search ?? '');
@@ -62,9 +62,13 @@ export function resolveRelay(search) {
 
   const kept = [];
   const states = [];
+  const seen = new Set();
   for (const seg of q.split('&')) {
     const key = seg.split('=')[0];
     if (!FORWARDED.includes(key)) continue;
+    // Google sends each of these once; a repeated one is ambiguous, so nothing is forwarded.
+    if (seen.has(key)) return { kind: 'refused', reason: 'duplicate' };
+    seen.add(key);
     kept.push(seg);
     if (key === 'state') states.push(seg.slice('state='.length));
   }
