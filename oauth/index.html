@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hejmo</title>
+<link rel="stylesheet" href="relay.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<div class="relay"><div class="card">
+<p class="brand">Hejmo</p>
+
+<noscript>
+<h1>JavaScript wird gebraucht / JavaScript is needed</h1>
+<p lang="de">Diese Seite reicht den Anmeldecode von Google in deinem Browser an deine Hejmo-Box weiter. Dafür braucht sie JavaScript. Sie lädt nichts von anderen Seiten.</p>
+<p lang="en">This page passes Google's sign-in code to your Hejmo box inside your browser. It needs JavaScript for that. It loads nothing from other sites.</p>
+</noscript>
+
+<section id="forward" hidden>
+<h1 lang="de">Zurück zu deiner Hejmo-Box …</h1>
+<p lang="de">Einen Moment. Falls nichts passiert, tippe auf den Knopf.</p>
+<h1 lang="en">Back to your Hejmo box …</h1>
+<p lang="en">One moment. If nothing happens, tap the button.</p>
+<p class="target"><span lang="de">Ziel</span> / <span lang="en">Target</span>: <b id="forward-target"></b></p>
+<a class="button" id="forward-button" href="#"><span lang="de">Weiter zur Box</span> / <span lang="en">Continue to the box</span></a>
+</section>
+
+<section id="refused-http" hidden>
+<h1 lang="de">Diese Weiterleitung ist nicht erlaubt</h1>
+<p lang="de">Diese Seite leitet nur zu einer Hejmo-Box zurück: über https, oder über http zu einer Adresse im Heimnetz. Das Ziel ist keines davon; nichts wurde weitergegeben.</p>
+<p lang="de">Geh zurück zu deiner Box und nimm dort den Ersatzweg „Adresse einfügen“.</p>
+<h1 lang="en">This redirect is not allowed</h1>
+<p lang="en">This page only sends you back to a Hejmo box: over https, or over http to an address in your home network. The target is neither; nothing was passed on.</p>
+<p lang="en">Go back to your box and use the fallback "Paste address" there.</p>
+<p class="target"><span lang="de">Ziel</span> / <span lang="en">Target</span>: <b id="refused-target"></b></p>
+</section>
+
+<section id="refused-other" hidden>
+<h1 lang="de">Diese Weiterleitung ist nicht erlaubt</h1>
+<p lang="de">In der Anmeldung steht keine gültige Adresse einer Hejmo-Box. Diese Seite leitet nur zum Pfad <code>/connections/google/callback</code> einer Box zurück; nichts wurde weitergegeben.</p>
+<p lang="de">Geh zurück zu deiner Box und nimm dort den Ersatzweg „Adresse einfügen“.</p>
+<h1 lang="en">This redirect is not allowed</h1>
+<p lang="en">The sign-in holds no valid address of a Hejmo box. This page only sends you back to the path <code>/connections/google/callback</code> of a box; nothing was passed on.</p>
+<p lang="en">Go back to your box and use the fallback "Paste address" there.</p>
+</section>
+
+<section id="direct" hidden>
+<h1 lang="de">Diese Seite leitet nach einer Google-Anmeldung zurück zu eurer Hejmo-Box</h1>
+<p lang="de">Allein aufgerufen tut sie nichts. Sie speichert nichts, lädt nichts von anderen Seiten und reicht nur den einmaligen Anmeldecode an eure Box weiter.</p>
+<h1 lang="en">After a Google sign-in, this page sends you back to your Hejmo box</h1>
+<p lang="en">Opened on its own, it does nothing. It stores nothing, loads nothing from other sites and only passes the one-time sign-in code on to your box.</p>
+<a class="link" href="https://github.com/hejmo-home/hejmo"><span lang="de">Was ist Hejmo?</span> / <span lang="en">What is Hejmo?</span></a>
+</section>
+</div></div>
+</body>
+</html>
