@@ -1,0 +1,4 @@
+# Only the site is published, not the tests or the package file.
+exclude:
+  - test
+  - package.json
